@@ -82,7 +82,9 @@ export const InitialModal = () => {
               />
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button disabled={isLoading}>Create server</Button>
+              <Button variant="primary" disabled={isLoading}>
+                Create server
+              </Button>
             </DialogFooter>
           </form>
         </Form>
