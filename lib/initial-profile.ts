@@ -7,7 +7,7 @@ export const initialProfile = async () => {
   if (!user) {
     return redirectToSignIn();
   }
-  const profile = await db.profile.findUniqueOrThrow({
+  const profile = await db.profile.findUnique({
     where: {
       userId: user.id,
     },
