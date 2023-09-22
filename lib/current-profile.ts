@@ -5,10 +5,16 @@ export const currentProfile = async () => {
   if (!userId) {
     return null;
   }
-  const profile = await db.profile.findUnique({
-    where: {
-      userId,
-    },
-  });
-  return profile;
+
+  try {
+    const profile = await db.profile.findUnique({
+      where: {
+        userId,
+      },
+    });
+    return profile;
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    throw error;
+  }
 };
