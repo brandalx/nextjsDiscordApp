@@ -48,6 +48,10 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     (member) => member.profileId !== profile.id
   );
 
+  if (!server) {
+    return redirect("/");
+  }
+
   return <div>Server Sidebar</div>;
 };
 
