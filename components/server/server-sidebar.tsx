@@ -44,6 +44,10 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     (channel) => channel.type === ChannelType.VIDEO
   );
 
+  const members = server?.members.filter(
+    (member) => member.profileId !== profile.id
+  );
+
   return <div>Server Sidebar</div>;
 };
 
