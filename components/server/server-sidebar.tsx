@@ -1,4 +1,4 @@
-import { ServerHeader } from "@/app/api/servers/server-header";
+import { ServerHeader } from "@/components/server/server-header";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { ChannelType } from "@prisma/client";
