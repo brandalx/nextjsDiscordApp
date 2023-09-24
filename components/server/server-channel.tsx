@@ -13,13 +13,13 @@ interface ServerChannelProps {
 }
 
 const iconMap = {
-  [ChannelType.TEXT]: <Hash className="w-4 h-4" />,
-  [ChannelType.AUDIO]: <Mic className="w-4 h-4" />,
-  [ChannelType.VIDEO]: <Video className="w-4 h-4" />,
+  [ChannelType.TEXT]: Hash,
+  [ChannelType.AUDIO]: Mic,
+  [ChannelType.VIDEO]: Video,
 };
 
 const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
-  const icon = iconMap[channel.type];
+  const Icon = iconMap[channel.type];
   const params = useParams();
   const router = useRouter();
 
@@ -31,9 +31,8 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
         params?.channelId === channel.id && "bg-zinc-700/20 dark:bg-zinc-700"
       )}
     >
-      <div className="flex-shrink-0  w-4 h-4 me-1 text-zinc-500 dark:text-zinc-400 ">
-        {icon}
-      </div>
+      <Icon className="flex-shrink-0  w-4 h-4 me-1 text-zinc-500 dark:text-zinc-400 " />
+
       <p
         className={cn(
           " line-clamp-1 font-semibold text-sm text-zinc-500 group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300 transition",

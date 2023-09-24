@@ -197,7 +197,7 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
               server={server}
             />
             {members.map((member) => (
-              <ServerMember key={member.id} />
+              <ServerMember key={member.id} member={member} server={server} />
             ))}
           </div>
         )}
