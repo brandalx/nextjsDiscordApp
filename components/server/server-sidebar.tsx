@@ -18,7 +18,7 @@ const roleIconMap = {
   [MemberRole.MODERATOR]: (
     <ShieldCheck className="mr-2 text-indigo-500 h-4 w-4" />
   ),
-  [MemberRole.ADMIN]: <ShieldAlert className="mr-2 text-indigo-500 h-4 w-4" />,
+  [MemberRole.ADMIN]: <ShieldAlert className="mr-2 text-rose-500 h-4 w-4" />,
 };
 interface ServerSidebarProps {
   serverId: string;
