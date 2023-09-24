@@ -27,11 +27,11 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
     <button
       onClick={() => {}}
       className={cn(
-        "group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1",
+        " group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1",
         params?.channelId === channel.id && "bg-zinc-700/20 dark:bg-zinc-700"
       )}
     >
-      <div className="flex-shrink-0  w-5 h-5 text-zinc-500 dark:text-zinc-400">
+      <div className="flex-shrink-0  w-4 h-4 me-1 text-zinc-500 dark:text-zinc-400 ">
         {icon}
       </div>
       <p
@@ -48,7 +48,6 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
           <ActionTooltip label="Edit">
             <Edit className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition" />
           </ActionTooltip>
-
           <ActionTooltip label="Delete">
             <Trash className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition" />
           </ActionTooltip>
