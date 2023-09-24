@@ -72,7 +72,10 @@ export const CreateChannelModal = () => {
       });
 
       console.log(url);
-      await axios.post(url, values);
+      let response = await axios.post(url, values);
+
+      console.log(response);
+
       form.reset();
       router.refresh();
       onClose();
