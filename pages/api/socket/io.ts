@@ -6,7 +6,7 @@ import { typeNextApiResponseServerIo } from "@/types";
 
 export const config = {
   api: {
-    bodyParse: false,
+    bodyParser: false,
   },
 };
 
@@ -18,7 +18,7 @@ const ioHandler = (req: NextApiRequest, res: typeNextApiResponseServerIo) => {
     const io = new ServerIO(httpServer, {
       path: path,
       //@ts-ignore
-      addTrailingSlah: false,
+      addTrailingSlash: false,
     });
     res.socket.server.io = io;
   }
