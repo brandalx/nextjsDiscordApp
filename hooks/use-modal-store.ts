@@ -31,5 +31,12 @@ export const useModal = create<ModalStore>((set) => ({
   data: {},
   onOpen: (type, data = {}) => set({ isOpen: true, type, data }),
 
-  onClose: () => set({ type: null, isOpen: false }),
+  onClose: () => {
+    set({ type: null, isOpen: false });
+
+    // Delay restoring pointer events for 2 seconds
+    setTimeout(() => {
+      document.body.style.pointerEvents = "auto";
+    }, 1000);
+  },
 }));
