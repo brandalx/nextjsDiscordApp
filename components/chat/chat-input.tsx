@@ -52,6 +52,7 @@ const ChatInput = ({ apiUrl, query, type, name }: ChatInputProps) => {
                     placeholder={`Message ${
                       type === "conversation" ? name : "#" + name
                     }`}
+                    {...field}
                   />
                   <div className="absolute top-7 right-8">
                     <Smile />
