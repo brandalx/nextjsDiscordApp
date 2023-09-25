@@ -137,7 +137,7 @@ model DirectMessage {
   updatedAt DateTime @updatedAt
 
   @@index([memberId])
-  @@index([conversationId])
+  @@index([conversationId]) 
  
 
 }
