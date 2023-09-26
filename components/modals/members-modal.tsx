@@ -93,7 +93,7 @@ export const MembersModal = () => {
   };
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-white text-black  overflow-hidden">
+      <DialogContent className="dark:bg-zinc-700/75   text-black dark:text-zinc-200 bg-white   overflow-hidden">
         <DialogHeader className="pt-8 px-6 ">
           <DialogTitle className="text-2xl text-center font-bold">
             Manage Members

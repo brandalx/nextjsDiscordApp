@@ -99,7 +99,7 @@ export const EditChannelModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
+      <DialogContent className=" dark:bg-zinc-700/75   text-black dark:text-zinc-200 bg-white   p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6 ">
           <DialogTitle className="text-2xl text-center font-bold">
             Edit Channel
@@ -111,13 +111,13 @@ export const EditChannelModal = () => {
               <FormField
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                    <FormLabel className="uppercase text-xs font-bold  ">
                       Channel name
                     </FormLabel>
                     <FormControl>
                       <Input
                         disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 "
+                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 "
                         placeholder="Enter channel name"
                         {...field}
                       />
@@ -141,7 +141,7 @@ export const EditChannelModal = () => {
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="bg-zinc-300/50 border-0 focus:ring-0 text-black ring-offset-0 focus:ring-offset-0 capitalize outline-none">
+                        <SelectTrigger className="bg-zinc-300/50 border-0 focus:ring-0  ring-offset-0 focus:ring-offset-0 capitalize outline-none">
                           <SelectValue placeholder="Select a channel type" />
                         </SelectTrigger>
                       </FormControl>
@@ -161,7 +161,7 @@ export const EditChannelModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
+            <DialogFooter className=" px-6 py-4">
               <Button variant="primary" disabled={isLoading}>
                 Save
               </Button>
