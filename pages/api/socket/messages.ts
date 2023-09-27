@@ -64,6 +64,23 @@ export default async function handler(
     if (!member) {
       return res.status(404).json({ message: "Member not found" });
     }
+    const message = await db.message.create({
+      data: {
+        content,
+        fileUrl,
+        channelId: channelId as string,
+        memberId: member.id,
+      },
+      include: {
+        member: {
+          include: {
+            profile: true,
+          },
+        },
+      },
+    });
+
+    return res.status(200).json(message);
   } catch (error) {
     console.log("[MESSAGE_POST]", error);
     return res.status(500).json({ message: "Internal error" });
