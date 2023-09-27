@@ -2,6 +2,7 @@
 
 import { Member } from "@prisma/client";
 import ChatWelcome from "./chat-welcome";
+import { useChatQuery } from "@/hooks/use-chat-query";
 
 interface ChatMessagesProps {
   name: string;
@@ -11,7 +12,7 @@ interface ChatMessagesProps {
   socketUrl: string;
   socketQuery: Record<string, string>;
   paramKey: "channelId" | "conversationId";
-  paramValues: string;
+  paramValue: string;
   type: "channel" | "conversation";
 }
 const ChatMessages = ({
@@ -22,9 +23,17 @@ const ChatMessages = ({
   socketUrl,
   socketQuery,
   paramKey,
-  paramValues,
+  paramValue,
   type,
 }: ChatMessagesProps) => {
+  const queryKey = `chat:${chatId}`;
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useChatQuery({
+      queryKey,
+      apiUrl,
+      paramKey,
+      paramValue,
+    });
   return (
     <div className="flex-1 flex flex-col py-4 overflow-auto">
       <div className="flex-1" />
