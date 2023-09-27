@@ -1,15 +1,16 @@
 import { currentProfilePages } from "@/lib/current-profile-pages";
 import { db } from "@/lib/db";
-import { typeNextApiResponseServerIo } from "@/types";
+import { NextApiResponseServerIo } from "@/types";
 import { NextApiRequest } from "next";
 
 export default async function handler(
   req: NextApiRequest,
-  res: typeNextApiResponseServerIo
+  res: NextApiResponseServerIo
 ) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
+
   try {
     const profile = await currentProfilePages(req);
     const { content, fileUrl } = req.body;
@@ -21,6 +22,7 @@ export default async function handler(
     if (!serverId) {
       return res.status(400).json({ error: "Server ID missing" });
     }
+
     if (!channelId) {
       return res.status(400).json({ error: "Channel ID missing" });
     }
@@ -44,6 +46,7 @@ export default async function handler(
     });
 
     if (!server) {
+      console.log("Server not found");
       return res.status(404).json({ message: "Server not found" });
     }
 
@@ -53,17 +56,20 @@ export default async function handler(
         serverId: serverId as string,
       },
     });
-    if (!server) {
+    if (!channel) {
+      console.log("Channel not found");
       return res.status(404).json({ message: "Channel not found" });
     }
 
-    const member = server.members.find((member) => {
-      member.profileId === profile.id;
-    });
+    const member = server.members.find(
+      (member) => member.profileId === profile.id
+    );
 
     if (!member) {
+      console.log("Member not found");
       return res.status(404).json({ message: "Member not found" });
     }
+
     const message = await db.message.create({
       data: {
         content,
