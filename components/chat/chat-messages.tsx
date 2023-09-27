@@ -13,7 +13,17 @@ interface ChatMessagesProps {
   paramValues: string;
   type: "channel" | "conversation";
 }
-const ChatMessages = () => {
+const ChatMessages = ({
+  name,
+  member,
+  chatId,
+  apiUrl,
+  socketUrl,
+  socketQuery,
+  paramKey,
+  paramValues,
+  type,
+}: ChatMessagesProps) => {
   return <div>Chat messages</div>;
 };
 
