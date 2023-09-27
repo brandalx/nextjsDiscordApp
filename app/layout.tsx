@@ -7,6 +7,8 @@ import { ModalProvider } from "@/components/providers/modal-provider";
 import { cn } from "@/lib/utils";
 import { SocketProvider } from "@/components/providers/socket-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { dark } from "@clerk/themes";
+
 const font = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,9 +22,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
       <html lang="en" suppressHydrationWarning>
-        <body className={cn(font.className, "bg-white dark:bg-[#313338]")}>
+        <body className={cn(font.className, "bg-white dark:bg-[#1d1d1d]")}>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
