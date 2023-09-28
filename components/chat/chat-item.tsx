@@ -5,7 +5,7 @@ import { UserAvatar } from "../user-avatar";
 import { ActionTooltip } from "../ui/action-tooltip";
 import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 import * as z from "zod";
@@ -59,7 +59,18 @@ const ChatItem = ({
   const isOwner = currentMember.id === member.id;
   const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner);
   const fileType = fileUrl?.split(".").pop();
+  const form = useForm<z.infer<typeof fromSchema>>({
+    resolver: zodResolver(fromSchema),
+    defaultValues: {
+      content: content,
+    },
+  });
 
+  useEffect(() => {
+    form.reset({
+      content: content,
+    });
+  }, [content]);
   const canEditMessage = !deleted && isOwner && !fileUrl;
   const isPDF = fileType === "pdf" && fileUrl;
   const isImage = !isPDF && fileUrl;
