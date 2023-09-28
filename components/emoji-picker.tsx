@@ -9,7 +9,7 @@ import { useTheme } from "next-themes";
 interface EmojiPickerProps {
   onChange: (value: string) => void;
 }
-export const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
+const EmojiPicker: React.FC<EmojiPickerProps> = ({ onChange }) => {
   const { resolvedTheme } = useTheme();
   return (
     <Popover>
@@ -30,3 +30,4 @@ export const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
     </Popover>
   );
 };
+export default EmojiPicker;

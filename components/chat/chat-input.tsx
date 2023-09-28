@@ -16,7 +16,7 @@ interface ChatInputProps {
 import { Input } from "../ui/input";
 import { Plus, Smile } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
-import { EmojiPicker } from "../emoji-picker";
+import EmojiPicker from "../emoji-picker";
 import { useRouter } from "next/navigation";
 const formSchema = z.object({
   content: z.string().min(1),
