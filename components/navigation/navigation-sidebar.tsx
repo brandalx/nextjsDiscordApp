@@ -41,7 +41,7 @@ export const NavigationSidebar = async () => {
       <div className="pb-3 mt-auto flex items-center flex-col gap-4 ">
         <a
           target="_blank"
-          className="hover:text-indigo-500 transition dark:text-zinc-600 text-zinc-400"
+          className="hover:text-indigo-500 hover:dark:text-indigo-500 transition dark:text-zinc-600 text-zinc-400"
           href="https://github.com/brandalx"
         >
           <div>
