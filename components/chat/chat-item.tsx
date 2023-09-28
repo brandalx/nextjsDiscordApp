@@ -81,6 +81,11 @@ const ChatItem = ({
 
   const onSubmit = async (values: z.infer<typeof fromSchema>) => {
     try {
+      const url = qs.stringifyUrl({
+        url: `${socketUrl}/${id}`,
+        query: socketQuery,
+      });
+      await axios.patch(url, values);
     } catch (error) {
       console.log(error);
     }
