@@ -77,8 +77,13 @@ const ChatItem = ({
     window.addEventListener("keydown", handleKeyDown);
   }, []);
 
-  const onSubmit = (values) => {
-    console.timeLog(values);
+  const isLoading = form.formState.isSubmitting;
+
+  const onSubmit = async (values: z.infer<typeof fromSchema>) => {
+    try {
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -168,6 +173,7 @@ const ChatItem = ({
                       <FormControl>
                         <div className="relative w-full">
                           <Input
+                            disabled={isLoading}
                             className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dar:text-zinc-200 "
                             placeholder="Edited message"
                             {...field}
@@ -177,7 +183,7 @@ const ChatItem = ({
                     </FormItem>
                   )}
                 />
-                <Button size="sm" variant="primary">
+                <Button disabled={isLoading} size="sm" variant="primary">
                   Save
                 </Button>
               </form>
