@@ -7,7 +7,8 @@ import { Loader2, ServerCrash } from "lucide-react";
 import { group } from "console";
 import { Fragment } from "react";
 import ChatItem from "./chat-item";
-
+import { format } from "date-fns";
+const DATE_FORMAT = "d MM yyyy, HH:mm";
 type MessageWithMemberWithProfile = Message & {
   member: Member & {
     profile: Profile;
@@ -76,7 +77,19 @@ const ChatMessages = ({
         {data?.pages?.map((group, i) => (
           <Fragment key={i}>
             {group.items.map((message: MessageWithMemberWithProfile) => (
-              <ChatItem key={i} />
+              <ChatItem
+                id={message.id}
+                content={message.content}
+                currentMember={member}
+                deleted={message.deleted}
+                fileUrl={message.fileUrl}
+                member={message.member}
+                socketQuery={socketQuery}
+                socketUrl={socketUrl}
+                timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
+                usUpdated={message.updatedAt !== message.createdAt}
+                key={message.id}
+              />
             ))}
           </Fragment>
         ))}
