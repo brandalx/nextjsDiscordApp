@@ -28,7 +28,7 @@ interface ChatItemProps {
   fileUrl: string | null;
   deleted: boolean;
   currentMember: Member;
-  usUpdated: boolean;
+  isUpdated: boolean;
   socketUrl: string;
   socketQuery: Record<string, string>;
 }
@@ -53,7 +53,7 @@ const ChatItem = ({
   socketQuery,
   socketUrl,
   timestamp,
-  usUpdated,
+  isUpdated,
 }: ChatItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const { onOpen } = useModal();
@@ -172,7 +172,7 @@ const ChatItem = ({
               )}
             >
               {content}
-              {usUpdated && !deleted && (
+              {isUpdated && !deleted && (
                 <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
                   (edited)
                 </span>

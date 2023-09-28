@@ -1,8 +1,9 @@
+import { NextApiRequest } from "next";
+import { MemberRole } from "@prisma/client";
+
+import { NextApiResponseServerIo } from "@/types";
 import { currentProfilePages } from "@/lib/current-profile-pages";
 import { db } from "@/lib/db";
-import { NextApiResponseServerIo } from "@/types";
-import { MemberRole } from "@prisma/client";
-import { NextApiRequest } from "next";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,6 +12,7 @@ export default async function handler(
   if (req.method !== "DELETE" && req.method !== "PATCH") {
     return res.status(405).json({ error: "Method not allowed" });
   }
+
   try {
     const profile = await currentProfilePages(req);
     const { messageId, serverId, channelId } = req.query;
@@ -21,11 +23,11 @@ export default async function handler(
     }
 
     if (!serverId) {
-      return res.status(401).json({ error: "Server ID is missing" });
+      return res.status(400).json({ error: "Server ID missing" });
     }
 
     if (!channelId) {
-      return res.status(401).json({ error: "Channel ID is missing" });
+      return res.status(400).json({ error: "Channel ID missing" });
     }
 
     const server = await db.server.findFirst({
@@ -60,8 +62,9 @@ export default async function handler(
     const member = server.members.find(
       (member) => member.profileId === profile.id
     );
+
     if (!member) {
-      return res.status(404).json({ error: "Channel not found" });
+      return res.status(404).json({ error: "Member not found" });
     }
 
     let message = await db.message.findFirst({
@@ -98,7 +101,7 @@ export default async function handler(
         },
         data: {
           fileUrl: null,
-          content: "This message has been deleted",
+          content: "This message has been deleted.",
           deleted: true,
         },
         include: {
@@ -115,6 +118,7 @@ export default async function handler(
       if (!isMessageOwner) {
         return res.status(401).json({ error: "Unauthorized" });
       }
+
       message = await db.message.update({
         where: {
           id: messageId as string,
@@ -132,8 +136,10 @@ export default async function handler(
       });
     }
 
-    const updateKey = `chat:${channelId}:messages:updates`;
+    const updateKey = `chat:${channelId}:messages:update`;
+
     res?.socket?.server?.io?.emit(updateKey, message);
+
     return res.status(200).json(message);
   } catch (error) {
     console.log("[MESSAGE_ID]", error);
