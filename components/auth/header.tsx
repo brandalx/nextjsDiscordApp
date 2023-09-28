@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "GitHub Repo of NexusTalk",
-    href: "https://github.com/brandalx/nextjsDiscordApp",
+    href: "https://github.com/brandalx/NextJSNexusTalk",
     description: "See open source code of this porject",
   },
   {
