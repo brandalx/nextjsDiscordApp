@@ -67,6 +67,16 @@ const ChatItem = ({
     },
   });
 
+  useEffect(() => {
+    const handleKeyDown = (event: any) => {
+      if (event.key === "Escape" || event.keyCode === 27) {
+        setIsEditing(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+  }, []);
+
   const onSubmit = (values) => {
     console.timeLog(values);
   };
