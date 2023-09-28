@@ -112,6 +112,12 @@ const ChatItem = ({
   const isPDF = fileType === "pdf" && fileUrl;
   const isImage = !isPDF && fileUrl;
 
+  useEffect(() => {
+    console.log("Is message deleted?", deleted);
+    console.log("Is current member the owner?", isOwner);
+    console.log("Does the message have a file URL?", !!fileUrl);
+  }, []);
+
   return (
     <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full rounded-md mx-2 ">
       <div className="group flex gap-x-2 items-start w-full">
@@ -123,7 +129,7 @@ const ChatItem = ({
         </div>
         <div className="flex flex-col w-full">
           <div className="flex items-center gap-x-2">
-            <div className="flex items-center">
+            <div onClick={onMemberClick} className="flex items-center">
               <p className="font-semibold text-sm hover:underline cursor-pointer">
                 {member.profile.name}
               </p>

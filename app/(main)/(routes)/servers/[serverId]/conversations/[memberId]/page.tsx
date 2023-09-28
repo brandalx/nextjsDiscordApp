@@ -57,7 +57,7 @@ const MemberIdPage = async ({ params }: MemberIdPageProps) => {
       />
       <ChatMessages
         name={otherMember.profile.name}
-        member={otherMember}
+        member={currentMember}
         chatId={conversation.id}
         apiUrl="/api/direct-messages"
         socketUrl="/api/socket/direct-messages"
