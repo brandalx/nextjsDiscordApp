@@ -7,6 +7,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import NavigationItem from "./navigation-item";
 import { ModeToggle } from "../mode-toggle";
 import { UserButton } from "@clerk/nextjs";
+import { Fingerprint } from "lucide-react";
 export const NavigationSidebar = async () => {
   const profile = await currentProfile();
   if (!profile) {
@@ -38,6 +39,17 @@ export const NavigationSidebar = async () => {
         ))}
       </ScrollArea>
       <div className="pb-3 mt-auto flex items-center flex-col gap-4 ">
+        <a
+          target="_blank"
+          className="hover:text-indigo-500 transition dark:text-zinc-600 text-zinc-400"
+          href="https://github.com/brandalx"
+        >
+          <div>
+            <div className="flex items-center justify-center">
+              <Fingerprint className="" />
+            </div>
+          </div>
+        </a>
         <ModeToggle />
         <UserButton
           afterSignOutUrl="/"

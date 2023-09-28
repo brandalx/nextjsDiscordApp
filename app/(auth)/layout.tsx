@@ -1,5 +1,6 @@
 import Footer from "@/components/auth/footer";
 import Header from "@/components/auth/header";
+import { Fingerprint } from "lucide-react";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -7,8 +8,15 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       <div>
         <Header />
       </div>
+
       <div className="h-full">
         <div className="h-full flex-col flex items-center justify-center">
+          <div className="flex items-center justify-center my-2">
+            <Fingerprint className="text-indigo-500" size={40} />
+            <div>
+              <p className="px-2 font-mono font-semibold text-2xl">NexusTalk</p>
+            </div>
+          </div>
           <div>{children}</div>
         </div>
       </div>
