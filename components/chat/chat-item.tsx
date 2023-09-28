@@ -5,6 +5,8 @@ import { UserAvatar } from "../user-avatar";
 import { ActionTooltip } from "../ui/action-tooltip";
 import { FileIcon, ShieldAlert, ShieldCheck } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface ChatItemProps {
   id: string;
@@ -39,6 +41,8 @@ const ChatItem = ({
   timestamp,
   usUpdated,
 }: ChatItemProps) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const isAdmin = currentMember.role === MemberRole.ADMIN;
   const isModerator = currentMember.role === MemberRole.MODERATOR;
   const isOwner = currentMember.id === member.id;
@@ -95,6 +99,22 @@ const ChatItem = ({
                 PDF File
               </a>
             </div>
+          )}
+          {!fileUrl && !isEditing && (
+            <p
+              className={cn(
+                "text-sm text-zinc-600 dark:text-zinc-300",
+                deleted &&
+                  "italic text-zinc-500 dark:text-zinc-400 text-xs-mt-1"
+              )}
+            >
+              {content}
+              {usUpdated && !deleted && (
+                <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
+                  (edited)
+                </span>
+              )}
+            </p>
           )}
         </div>
       </div>
