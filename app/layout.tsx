@@ -28,6 +28,13 @@ export default function RootLayout({
       }}
     >
       <html lang="en" suppressHydrationWarning>
+        <head>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0
+    maximum-scale=1, user-scalable=0"
+          />
+        </head>
         <body className={cn(font.className, "bg-white dark:bg-[#1d1d1d]")}>
           <ThemeProvider
             attribute="class"
