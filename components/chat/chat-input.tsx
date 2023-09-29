@@ -14,7 +14,7 @@ interface ChatInputProps {
 }
 
 import { Input } from "../ui/input";
-import { Plus, Send, Smile } from "lucide-react";
+import { Loader2, Plus, Send, Smile } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
 import EmojiPicker from "../emoji-picker";
 import { useRouter } from "next/navigation";
@@ -84,7 +84,10 @@ const ChatInput = ({ apiUrl, query, type, name }: ChatInputProps) => {
                         }}
                       >
                         <span>
-                          <Send className="w-4 h-4 mx-2" />
+                          {!isLoading && <Send className="w-4 h-4 mx-2 " />}
+                          {isLoading && (
+                            <Loader2 className="w-4 h-4 mx-2  animate-spin" />
+                          )}
                         </span>
                       </Button>
                       <div className="absolute -left-[80px]">

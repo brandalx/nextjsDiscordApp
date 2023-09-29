@@ -3,7 +3,15 @@
 import { Member, MemberRole, Profile } from "@prisma/client";
 import { UserAvatar } from "../user-avatar";
 import { ActionTooltip } from "../ui/action-tooltip";
-import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
+import {
+  Check,
+  Edit,
+  FileIcon,
+  Loader2,
+  ShieldAlert,
+  ShieldCheck,
+  Trash,
+} from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -215,11 +223,11 @@ const ChatItem = ({
                             <textarea
                               style={{
                                 height: contentHeight
-                                  ? `${contentHeight}px`
+                                  ? `${contentHeight + 10}px`
                                   : "auto",
                               }}
                               disabled={isLoading}
-                              className="p-2 
+                              className="p-2 rounded-md
                             autoExpandTextarea
                             bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 text-[12.36px] overflow-y-hidden resize-none
                             h-full w-full
@@ -236,10 +244,18 @@ const ChatItem = ({
                     <Button
                       disabled={isLoading}
                       size="sm"
-                      className="w-[60px]"
+                      className="w-[80px]"
                       variant="primary"
                     >
                       Save
+                      <span>
+                        {!isLoading && (
+                          <Check className="w-4 text-white h-4 ml-1" />
+                        )}
+                        {isLoading && (
+                          <Loader2 className="w-4 h-4 mx-2  animate-spin" />
+                        )}
+                      </span>
                     </Button>
 
                     <Button
