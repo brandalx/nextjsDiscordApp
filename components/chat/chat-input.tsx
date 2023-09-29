@@ -14,10 +14,11 @@ interface ChatInputProps {
 }
 
 import { Input } from "../ui/input";
-import { Plus, Smile } from "lucide-react";
+import { Plus, Send, Smile } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
 import EmojiPicker from "../emoji-picker";
 import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 const formSchema = z.object({
   content: z.string().min(1),
 });
@@ -64,18 +65,34 @@ const ChatInput = ({ apiUrl, query, type, name }: ChatInputProps) => {
                   </button>
                   <Input
                     disabled={isLoading}
-                    className={`px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200`}
+                    className={`px-14 py-6 bg-zinc-200/90 rounded-full dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200`}
                     placeholder={`Message ${
                       type === "conversation" ? name : "#" + name
                     }`}
                     {...field}
                   />
-                  <div className="absolute top-7 right-8">
-                    <EmojiPicker
-                      onChange={(emoji: string) =>
-                        field.onChange(`${field.value} ${emoji}`)
-                      }
-                    />
+                  <div>
+                    <div className="absolute top-7 right-8">
+                      <Button
+                        className="absolute rounded-full -top-2 -left-[45px] right w-[50px]"
+                        disabled={isLoading}
+                        variant="primary"
+                        onClick={() => {
+                          onSubmit;
+                        }}
+                      >
+                        <span>
+                          <Send className="w-4 h-4 mx-2" />
+                        </span>
+                      </Button>
+                      <div className="absolute -left-[110px]">
+                        <EmojiPicker
+                          onChange={(emoji: string) =>
+                            field.onChange(`${field.value} ${emoji}`)
+                          }
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </FormControl>
