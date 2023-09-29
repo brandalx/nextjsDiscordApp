@@ -126,9 +126,9 @@ const ChatItem = ({
     console.log("Does the message have a file URL?", !!fileUrl);
   }, []);
 
-  const [contentHeight, setContentHeight] = useState(null);
+  const [contentHeight, setContentHeight] = useState<number | null>(null);
 
-  const contentRef = useRef(null);
+  const contentRef = useRef<HTMLParagraphElement>(null);
 
   const handleEditClick = () => {
     if (contentRef.current) {
