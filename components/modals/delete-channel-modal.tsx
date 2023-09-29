@@ -16,6 +16,7 @@ import { useState } from "react";
 import axios from "axios";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 export const DeleteChannelModal = () => {
   const { isOpen, onClose, type, data } = useModal();
@@ -67,7 +68,8 @@ export const DeleteChannelModal = () => {
               Cancel
             </Button>
             <Button disabled={isLoading} variant="primary" onClick={onClick}>
-              Confirm
+              {!isLoading ? "Confirm" : "Deleting"}
+              {isLoading && <Loader2 className="w-4 h-4 mx-2  animate-spin" />}
             </Button>
           </div>
         </DialogFooter>

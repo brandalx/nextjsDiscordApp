@@ -34,6 +34,7 @@ import { useModal } from "@/hooks/use-modal-store";
 import { ChannelType } from "@prisma/client";
 import { classNames } from "uploadthing/client";
 import { useEffect } from "react";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   name: z
@@ -171,8 +172,14 @@ export const CreateChannelModal = () => {
               />
             </div>
             <DialogFooter className="px-6 py-4">
-              <Button variant="primary" disabled={isLoading}>
+              <Button
+                variant="primary"
+                disabled={isLoading || form.getValues("name").length === 0}
+              >
                 Create
+                {isLoading && (
+                  <Loader2 className="w-4 h-4 mx-2  animate-spin" />
+                )}
               </Button>
             </DialogFooter>
           </form>
