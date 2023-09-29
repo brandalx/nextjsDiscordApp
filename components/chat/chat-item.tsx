@@ -3,9 +3,17 @@
 import { Member, MemberRole, Profile } from "@prisma/client";
 import { UserAvatar } from "../user-avatar";
 import { ActionTooltip } from "../ui/action-tooltip";
-import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
+import {
+  Check,
+  Edit,
+  FileIcon,
+  Loader2,
+  ShieldAlert,
+  ShieldCheck,
+  Trash,
+} from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 import * as z from "zod";
@@ -118,8 +126,20 @@ const ChatItem = ({
     console.log("Does the message have a file URL?", !!fileUrl);
   }, []);
 
+  const [contentHeight, setContentHeight] = useState(null);
+
+  const contentRef = useRef(null);
+
+  const handleEditClick = () => {
+    if (contentRef.current) {
+      const height = contentRef.current.offsetHeight;
+      setContentHeight(height);
+    }
+    setIsEditing(true);
+  };
+
   return (
-    <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full rounded-md mx-2 ">
+    <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full  mx-2 rounded-lg ">
       <div className="group flex gap-x-2 items-start w-full">
         <div
           onClick={onMemberClick}
@@ -171,6 +191,7 @@ const ChatItem = ({
           )}
           {!fileUrl && !isEditing && (
             <p
+              ref={contentRef}
               className={cn(
                 "text-sm text-zinc-600 dark:text-zinc-300",
                 deleted &&
@@ -191,27 +212,66 @@ const ChatItem = ({
                 className="flex items-center w-full gap-x-2 pt-2"
                 onSubmit={form.handleSubmit(onSubmit)}
               >
-                <FormField
-                  control={form.control}
-                  name="content"
-                  render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormControl>
-                        <div className="relative w-full">
-                          <Input
-                            disabled={isLoading}
-                            className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200 "
-                            placeholder="Edited message"
-                            {...field}
-                          />
-                        </div>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <Button disabled={isLoading} size="sm" variant="primary">
-                  Save
-                </Button>
+                <div className="flex flex-col w-full">
+                  <FormField
+                    control={form.control}
+                    name="content"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormControl>
+                          <div className="relative w-full">
+                            <textarea
+                              style={{
+                                height: contentHeight
+                                  ? `${contentHeight + 10}px`
+                                  : "auto",
+                              }}
+                              disabled={isLoading}
+                              className="p-2 rounded-md
+                            autoExpandTextarea
+                            bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 text-[12.36px] overflow-y-hidden resize-none
+                            h-full w-full
+                            focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200 "
+                              placeholder="Edited message"
+                              {...field}
+                            />
+                          </div>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <div className="flex">
+                    <Button
+                      disabled={isLoading}
+                      size="sm"
+                      className="w-[80px]"
+                      variant="primary"
+                    >
+                      Save
+                      <span>
+                        {!isLoading && (
+                          <Check className="w-4 text-white h-4 ml-1" />
+                        )}
+                        {isLoading && (
+                          <Loader2 className="w-4 h-4 mx-2  animate-spin" />
+                        )}
+                      </span>
+                    </Button>
+
+                    <Button
+                      onClick={() => {
+                        form.reset();
+                        setIsEditing(false);
+                      }}
+                      disabled={isLoading}
+                      size="sm"
+                      className="w-[60px] ml-2"
+                      variant="ghost"
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
               </form>
               <span className="text-[10px] mt-1 text-zinc-400">
                 Press escape to cancel, enter to save
@@ -225,7 +285,14 @@ const ChatItem = ({
           {canEditMessage && (
             <ActionTooltip label="Edit">
               <Edit
-                onClick={() => setIsEditing(true)}
+                onClick={
+                  !isEditing
+                    ? handleEditClick
+                    : () => {
+                        form.reset();
+                        setIsEditing(false);
+                      }
+                }
                 className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
               />
             </ActionTooltip>

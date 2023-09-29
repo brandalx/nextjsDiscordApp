@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { FileUpload } from "../file-upload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -70,11 +71,10 @@ export const CreateServerModal = () => {
       <DialogContent className="      dark:bg-zinc-700/75   text-black dark:text-zinc-200 bg-white  p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6 ">
           <DialogTitle className="text-2xl text-center font-bold">
-            Edit your server
+            Create server
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Edit your server name and image, you can always change it later as
-            well
+            Provied your server name and server image
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -119,8 +119,19 @@ export const CreateServerModal = () => {
               />
             </div>
             <DialogFooter className="px-6 py-4">
-              <Button variant="primary" disabled={isLoading}>
+              <Button
+                variant="primary"
+                disabled={
+                  isLoading ||
+                  form.getValues("imageUrl").length === 0 ||
+                  form.getValues("name").length === 0 ||
+                  Object.keys(form.formState.errors).length > 0
+                }
+              >
                 Create server
+                {isLoading && (
+                  <Loader2 className="w-4 h-4 mx-2  animate-spin" />
+                )}
               </Button>
             </DialogFooter>
           </form>
