@@ -75,7 +75,9 @@ const ChatInput = ({ apiUrl, query, type, name }: ChatInputProps) => {
                     <div className="absolute top-7 right-8">
                       <Button
                         className="absolute rounded-full -top-2 -left-[45px] right w-[50px]"
-                        disabled={isLoading}
+                        disabled={
+                          isLoading || form.getValues("content").length < 1
+                        }
                         variant="primary"
                         onClick={() => {
                           onSubmit;
@@ -85,7 +87,7 @@ const ChatInput = ({ apiUrl, query, type, name }: ChatInputProps) => {
                           <Send className="w-4 h-4 mx-2" />
                         </span>
                       </Button>
-                      <div className="absolute -left-[110px]">
+                      <div className="absolute -left-[80px]">
                         <EmojiPicker
                           onChange={(emoji: string) =>
                             field.onChange(`${field.value} ${emoji}`)
