@@ -12,7 +12,7 @@ const ChatWelcome = ({ type, name }: ChatWelcomeProps) => {
           <Hash className="h-12 w-12 text-white" />
         </div>
       )}
-      <p className="text-xl md:text-3xl font-bold">
+      <p className="text-xl md:text-3xl font-bold ">
         {type === "channel" ? "Welcome to #" : ""}
         {name}
       </p>
