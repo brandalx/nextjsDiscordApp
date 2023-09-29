@@ -43,7 +43,7 @@ const Header = () => {
 
       <div className="flex items-center">
         <div>
-          <Menubar>
+          <Menubar className="border-dashed border h-[42px] w-[42px] flex justify-center items-center bg-transparent ">
             <MenubarMenu>
               <MenubarTrigger>
                 <Info className="h-4 w-4 " />
@@ -94,7 +94,9 @@ const Header = () => {
             </MenubarMenu>
           </Menubar>
         </div>
-        <ModeToggle />
+        <div className="border-dashed border ml-2 rounded-md">
+          <ModeToggle />
+        </div>
       </div>
     </div>
   );
